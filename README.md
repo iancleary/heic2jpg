@@ -6,10 +6,16 @@ This is a modern Python packaging port inspired by [`dragonGR/PyHEIC2JPG`](https
 
 ## Install as a uv tool
 
-Install once to create a persistent `heic2jpg` executable on your `PATH`:
+Install the latest release once to create a persistent `heic2jpg` executable on your `PATH`:
 
 ```bash
 uv tool install git+https://github.com/iancleary/heic2jpg.git
+```
+
+For a reproducible install pinned to the `v0.1.0` release tag:
+
+```bash
+uv tool install git+https://github.com/iancleary/heic2jpg.git@v0.1.0
 ```
 
 Then run the installed tool without re-downloading from GitHub on every invocation:
@@ -30,6 +36,12 @@ Use `uvx` when you want a one-shot run without installing a persistent executabl
 
 ```bash
 uvx --from git+https://github.com/iancleary/heic2jpg.git heic2jpg /path/to/heic/files
+```
+
+Pinned one-shot run from the `v0.1.0` release tag:
+
+```bash
+uvx --from git+https://github.com/iancleary/heic2jpg.git@v0.1.0 heic2jpg /path/to/heic/files
 ```
 
 `uvx` may reuse uv's cache, but it is still a run command rather than a durable tool install. Prefer `uv tool install` for repeated use.
