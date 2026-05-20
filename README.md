@@ -4,46 +4,17 @@ A small, `uv`-friendly command-line tool for converting HEIC/HEIF images to JPG.
 
 This is a modern Python packaging port inspired by [`dragonGR/PyHEIC2JPG`](https://github.com/dragonGR/PyHEIC2JPG). It keeps the same useful workflow—batch conversion, recursive mode, custom output directories, resizing, parallel workers, and EXIF preservation—while packaging it as an installable CLI with a `pyproject.toml`.
 
-## Run with `uvx` from GitHub
+## Install as a uv tool
 
-No clone or virtualenv setup required:
-
-```bash
-uvx --from git+https://github.com/iancleary/heic2jpg.git heic2jpg /path/to/heic/files
-```
-
-If you want a tiny reusable shell script, save this as `heic2jpg` somewhere on your `PATH`:
-
-```bash
-#!/usr/bin/env bash
-exec uvx --from git+https://github.com/iancleary/heic2jpg.git heic2jpg "$@"
-```
-
-Useful examples:
-
-```bash
-# Convert HEIC/HEIF files in one directory into ./ConvertedFiles
-uvx --from git+https://github.com/iancleary/heic2jpg.git heic2jpg ~/Pictures
-
-# Preserve subdirectories while recursively converting
-uvx --from git+https://github.com/iancleary/heic2jpg.git heic2jpg ~/Pictures --recursive
-
-# Choose quality, parallel workers, output folder, and resize
-uvx --from git+https://github.com/iancleary/heic2jpg.git heic2jpg ~/Pictures \
-  --quality 92 \
-  --workers 8 \
-  --recursive \
-  --resize 1920x1080 \
-  --output ~/Pictures/JPG
-
-# Delete originals only after successful conversion
-uvx --from git+https://github.com/iancleary/heic2jpg.git heic2jpg ~/Pictures --delete-originals
-```
-
-## Install for repeated use
+Install once to create a persistent `heic2jpg` executable on your `PATH`:
 
 ```bash
 uv tool install git+https://github.com/iancleary/heic2jpg.git
+```
+
+Then run the installed tool without re-downloading from GitHub on every invocation:
+
+```bash
 heic2jpg /path/to/heic/files
 ```
 
@@ -51,6 +22,37 @@ To upgrade later:
 
 ```bash
 uv tool upgrade heic2jpg
+```
+
+## Run once with `uvx` from GitHub
+
+Use `uvx` when you want a one-shot run without installing a persistent executable:
+
+```bash
+uvx --from git+https://github.com/iancleary/heic2jpg.git heic2jpg /path/to/heic/files
+```
+
+`uvx` may reuse uv's cache, but it is still a run command rather than a durable tool install. Prefer `uv tool install` for repeated use.
+
+Useful examples after installing with `uv tool install`:
+
+```bash
+# Convert HEIC/HEIF files in one directory into ./ConvertedFiles
+heic2jpg ~/Pictures
+
+# Preserve subdirectories while recursively converting
+heic2jpg ~/Pictures --recursive
+
+# Choose quality, parallel workers, output folder, and resize
+heic2jpg ~/Pictures \
+  --quality 92 \
+  --workers 8 \
+  --recursive \
+  --resize 1920x1080 \
+  --output ~/Pictures/JPG
+
+# Delete originals only after successful conversion
+heic2jpg ~/Pictures --delete-originals
 ```
 
 ## Development
